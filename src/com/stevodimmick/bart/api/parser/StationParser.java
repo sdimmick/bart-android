@@ -87,15 +87,15 @@ public class StationParser extends BaseParser<List<Station>> {
             } else if (name.equals("gtfs_latitude")) {
                 station.setLatitude(readFloat("gtfs_latitude"));
             } else if (name.equals("gtfs_longitude")) {
-                station.setLatitude(readFloat("gtfs_longitude"));
+                station.setLongitude(readFloat("gtfs_longitude"));
             } else if (name.equals("address")) {
-                station.setAbbr(readString("address"));
+                station.setAddress(readString("address"));
             } else if (name.equals("city")) {
-                station.setAbbr(readString("city"));
+                station.setCity(readString("city"));
             } else if (name.equals("state")) {
-                station.setAbbr(readString("state"));
+                station.setState(readString("state"));
             } else if (name.equals("zipcode")) {
-                station.setAbbr(readString("zipcode"));
+                station.setZipcode(readString("zipcode"));
             } else {
                 skip();
             }

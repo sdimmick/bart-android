@@ -26,6 +26,7 @@ public class Station {
     private float latitude;
     private float longitude;
     private String address;
+    private String city;
     private String county;
     private String state;
     private String zipcode;
@@ -70,6 +71,14 @@ public class Station {
         this.address = address;
     }
     
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getCounty() {
         return county;
     }
