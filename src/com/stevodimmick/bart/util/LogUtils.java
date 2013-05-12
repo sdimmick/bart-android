@@ -1,4 +1,4 @@
-package com.stevodimmick.util;
+package com.stevodimmick.bart.util;
 
 /**
  * Basic utility methods for the Android logger

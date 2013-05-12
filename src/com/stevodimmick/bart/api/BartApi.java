@@ -32,8 +32,8 @@ public class BartApi {
      * @param context the caller's {@link Context}
      * @return a list of all BART stations
      */
-    public static List<Station> getStations(Context context) 
-            throws ClientProtocolException, 
+    public static List<Station> getStations(Context context) throws 
+            ClientProtocolException, 
             IOException, 
             IllegalStateException, 
             XmlPullParserException {

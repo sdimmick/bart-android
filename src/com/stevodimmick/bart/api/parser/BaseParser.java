@@ -5,7 +5,7 @@ import java.io.InputStream;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.stevodimmick.util.LogUtils;
+import com.stevodimmick.bart.util.LogUtils;
 
 import android.util.Log;
 import android.util.Xml;

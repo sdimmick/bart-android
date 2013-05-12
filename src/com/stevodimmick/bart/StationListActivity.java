@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.stevodimmick.bart.api.BartApi;
 import com.stevodimmick.bart.api.model.Station;
-import com.stevodimmick.util.LogUtils;
+import com.stevodimmick.bart.util.LogUtils;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
