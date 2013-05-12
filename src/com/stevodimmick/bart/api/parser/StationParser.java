@@ -1,9 +1,7 @@
 package com.stevodimmick.bart.api.parser;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,25 +102,4 @@ public class StationParser extends BaseParser<List<Station>> {
         return station;
     }
     
-    public String read(InputStream inputStream)  {
-
-        StringBuilder result = new StringBuilder();
-        try {
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    inputStream));
-
-            String s = null;
-            while ((s = in.readLine()) != null) {
-                result.append(s);
-            }
-            in.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return result.substring(0);
-    }
-
 }
