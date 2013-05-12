@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BART public API key -->
+    <string name="api_key">MW9S-E7SL-26DU-VV8V</string>
+</resources>
