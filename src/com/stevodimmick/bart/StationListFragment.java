@@ -2,10 +2,7 @@ package com.stevodimmick.bart;
 
 import java.util.List;
 
-import com.stevodimmick.bart.api.BartApi;
-import com.stevodimmick.bart.api.model.Station;
-import com.stevodimmick.bart.util.LogUtils;
-
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,28 +12,37 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.Intent;
 
-public class StationListActivity extends ListActivity {
-    private static final String TAG = LogUtils.getTag(StationListActivity.class);
+import com.stevodimmick.bart.api.BartApi;
+import com.stevodimmick.bart.api.model.Station;
+import com.stevodimmick.bart.util.LogUtils;
 
+public class StationListFragment extends BaseListFragment {
+    private static final String TAG = LogUtils.getTag(StationListFragment.class);
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         new FetchStationsTask().execute();
     }
     
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        
         Station station = (Station) getListAdapter().getItem(position);
-        Intent intent = new Intent(this, ArrivalTimesActivity.class);
-        intent.putExtra(ArrivalTimesActivity.STATION_EXTRA_KEY, station);
-        startActivity(intent);
+        launchArrivalTimesFragment(station);
     }
     
+    private void launchArrivalTimesFragment(Station station) {
+        ArrivalTimesListFragment fragment = new ArrivalTimesListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ArrivalTimesListFragment.STATION_EXTRA_KEY, station);
+        fragment.setArguments(args);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.showFragment(fragment);
+    }
+
     // TODO: remove this
     private class FetchStationsTask extends AsyncTask<Void, Void, List<Station>> {
 
@@ -59,7 +65,7 @@ public class StationListActivity extends ListActivity {
                 Log.e(TAG, s.getName());
             }
             
-            setListAdapter(new StationsAdapter(StationListActivity.this, android.R.layout.simple_list_item_1, result));
+            setListAdapter(new StationsAdapter(getActivity(), android.R.layout.simple_list_item_1, result));
         }
     }
     
