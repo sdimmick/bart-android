@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 
 public class StationListActivity extends ListActivity {
     private static final String TAG = LogUtils.getTag(StationListActivity.class);
@@ -26,6 +28,15 @@ public class StationListActivity extends ListActivity {
         new FetchStationsTask().execute();
     }
     
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Station station = (Station) getListAdapter().getItem(position);
+        Intent intent = new Intent(this, ArrivalTimesActivity.class);
+        intent.putExtra(ArrivalTimesActivity.STATION_EXTRA_KEY, station);
+        startActivity(intent);
+    }
+    
     // TODO: remove this
     private class FetchStationsTask extends AsyncTask<Void, Void, List<Station>> {
 
@@ -34,7 +45,7 @@ public class StationListActivity extends ListActivity {
             List<Station> stations = null;
             
             try {
-                stations = BartApi.getStations(StationListActivity.this);
+                stations = BartApi.getStations();
             } catch (Exception e) {
                 Log.e(TAG, "Error", e);
             }

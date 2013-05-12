@@ -58,7 +58,7 @@ public abstract class BaseParser<T> {
     }
     
     /**
-     * Parsed the value of the specified element
+     * Parses the value of the specified element
      * @param elementName the name of the element to parse
      * @return a float containing the value of the specified element
      */
@@ -70,6 +70,24 @@ public abstract class BaseParser<T> {
             value = Float.parseFloat(text);
         } catch (NumberFormatException e) {
             Log.e(TAG, "Error parsing float from string " + text, e);
+        }
+        
+        return value;
+    }
+    
+    /**
+     * Parses the value of the specified element
+     * @param elementName the name of the element to parse
+     * @return an int containing the value of the specified element
+     */
+    protected int readInt(String elementName) throws XmlPullParserException, IOException {
+        int value = 0;
+        String text = readString(elementName);
+        
+        try {
+            value = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            Log.e(TAG, "Error parsing int from string " + text, e);
         }
         
         return value;

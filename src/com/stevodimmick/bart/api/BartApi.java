@@ -11,10 +11,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.Context;
-
 import com.stevodimmick.bart.api.model.Station;
+import com.stevodimmick.bart.api.model.TrainsForDestination;
 import com.stevodimmick.bart.api.parser.StationParser;
+import com.stevodimmick.bart.api.parser.TrainsForDestinationParser;
 
 /**
  * Fetches XML from BART's APIs and parses it into POJOs. More info here:
@@ -25,25 +25,50 @@ import com.stevodimmick.bart.api.parser.StationParser;
 public class BartApi {
     private static final String API_KEY = "MW9S-E7SL-26DU-VV8V";
     private static final String BASE_API_URL = "http://api.bart.gov/api";
-    private static final String STATIONS_URL = BASE_API_URL + "/stn.aspx?cmd=stns&key=" + API_KEY;
+    private static final String STATIONS_URL = BASE_API_URL + "/stn.aspx?cmd=stns";
+    private static final String ETD_URL = BASE_API_URL + "/etd.aspx?cmd=etd&orig=%s";
     
     /**
-     * Fetches and parses a list of BART stations
-     * @param context the caller's {@link Context}
-     * @return a list of all BART stations
+     * Appends the API key to the specified URL and returns an 
+     * {@link InputStream} to read data from it
+     * @param url the API to call
+     * @return an {@link InputStream} to read data from the API
      */
-    public static List<Station> getStations(Context context) throws 
-            ClientProtocolException, 
-            IOException, 
-            IllegalStateException, 
-            XmlPullParserException {
-        
+    private static InputStream doGet(String url) throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(STATIONS_URL);
+        HttpGet request = new HttpGet(url + "&key=" + API_KEY);
         HttpResponse response = httpClient.execute(request);
         InputStream inputStream = response.getEntity().getContent();
         
+        return inputStream;
+    }
+    
+    /**
+     * Fetches and parses a list of BART stations
+     * @return a list of all BART stations
+     */
+    public static List<Station> getStations() throws 
+            ClientProtocolException, 
+            IOException, 
+            XmlPullParserException {
+        
+        InputStream inputStream = doGet(STATIONS_URL);
         StationParser parser = new StationParser(inputStream);
+        return parser.parse();
+    }
+    
+    /**
+     * Fetches and parses a list of train arrival times for the specified BART station
+     * @param station the station to fetch arrival times for
+     * @return a {@link List} of {@link TrainsForDestination} with train arrival times
+     */
+    public static List<TrainsForDestination> getTrainsForDestination(String station) throws 
+            ClientProtocolException, 
+            IOException, 
+            XmlPullParserException {
+        
+        InputStream inputStream = doGet(String.format(ETD_URL, station));
+        TrainsForDestinationParser parser = new TrainsForDestinationParser(inputStream);
         return parser.parse();
     }
     

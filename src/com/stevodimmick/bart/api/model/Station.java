@@ -1,5 +1,7 @@
 package com.stevodimmick.bart.api.model;
 
+import java.io.Serializable;
+
 /**
  * POJO to hold parsed BART station data. Station XML looks like:
  * 
@@ -20,7 +22,9 @@ package com.stevodimmick.bart.api.model;
  * 
  * @author sdimmick
  */
-public class Station {
+public class Station implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String name;
     private String abbr;
     private float latitude;
