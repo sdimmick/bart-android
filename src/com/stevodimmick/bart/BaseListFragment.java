@@ -1,8 +1,8 @@
 package com.stevodimmick.bart;
 
-import android.support.v4.app.ListFragment;
+import com.actionbarsherlock.app.SherlockListFragment;
 
-public abstract class BaseListFragment extends ListFragment {
+public abstract class BaseListFragment extends SherlockListFragment {
     
 
 }

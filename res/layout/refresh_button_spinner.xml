@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:paddingRight="8dp" >
+
+    <ProgressBar
+        style="?android:attr/indeterminateProgressStyle"
+        android:layout_width="@dimen/refresh_button_spinner"
+        android:layout_height="@dimen/refresh_button_spinner"
+        android:layout_gravity="center_vertical|center_horizontal"
+        tools:ignore="NewApi" />
+
+</FrameLayout>
