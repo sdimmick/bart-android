@@ -2,6 +2,12 @@ package com.stevodimmick.bart.api.model;
 
 import java.io.Serializable;
 
+import com.stevodimmick.bart.database.StationTable;
+import com.stevodimmick.bart.database.StationTable.StationsQuery;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+
 /**
  * POJO to hold parsed BART station data. Station XML looks like:
  * 
@@ -34,6 +40,47 @@ public class Station implements Serializable {
     private String county;
     private String state;
     private String zipcode;
+    
+    /**
+     * Default constructor
+     */
+    public Station() {
+        
+    }
+    
+    /**
+     * Creates a {@link Station} from a {@link Cursor}
+     * @param cursor a {@link Cursor} pointing to the {@link StationTable}
+     */
+    public Station(Cursor cursor) {
+        this.name = cursor.getString(StationsQuery.NAME);
+        this.abbr = cursor.getString(StationsQuery.ABBREVIATION);
+        this.latitude = cursor.getFloat(StationsQuery.LATITUDE);
+        this.longitude = cursor.getFloat(StationsQuery.LONGITUDE);
+        this.address = cursor.getString(StationsQuery.ADDRESS);
+        this.county = cursor.getString(StationsQuery.COUNTY);
+        this.state = cursor.getString(StationsQuery.STATE);
+        this.zipcode = cursor.getString(StationsQuery.ZIPCODE);
+    }
+    
+    /**
+     * Generates {@link ContentValues} for inserting this {@link Station} in a database
+     * @return {@link ContentValues} suitable for inserting into a database
+     */
+    public ContentValues getContentValues() {
+        ContentValues cv = new ContentValues();
+        
+        cv.put(StationTable.NAME, this.name);
+        cv.put(StationTable.ABBREVIATION, this.abbr);
+        cv.put(StationTable.LATITUDE, this.latitude);
+        cv.put(StationTable.LONGITUDE, this.longitude);
+        cv.put(StationTable.ADDRESS, this.address);
+        cv.put(StationTable.COUNTY, this.county);
+        cv.put(StationTable.STATE, this.state);
+        cv.put(StationTable.ZIPCODE, this.zipcode);
+        
+        return cv;
+    }
     
     public String getName() {
         return name;

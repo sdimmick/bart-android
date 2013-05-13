@@ -23,17 +23,21 @@ public class MainActivity extends SherlockFragmentActivity {
         
         // Load the main fragment
         StationListFragment fragment = new StationListFragment();
-        showFragment(fragment);
+        showFragment(fragment, false);
     }
     
     /**
      * Replaces the main fragment with this instance
      */
-    public void showFragment(Fragment fragment) {
+    public void showFragment(Fragment fragment, boolean addToBackStack) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_fragment_container, fragment, MAIN_FRAGMENT_TAG);
-        fragmentTransaction.addToBackStack(null);
+        
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        
         fragmentTransaction.commit();
     }
 

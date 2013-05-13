@@ -17,6 +17,11 @@ import com.stevodimmick.bart.api.model.Station;
 import com.stevodimmick.bart.api.model.TrainsForDestination;
 import com.stevodimmick.bart.util.LogUtils;
 
+/**
+ * Displays detailed information about a particular station (train arrival
+ * times, address, etc.) in a list
+ * @author sdimmick
+ */
 public class ArrivalTimesListFragment extends BaseListFragment {
     private static final String TAG = LogUtils.getTag(ArrivalTimesListFragment.class);
     public static final String STATION_EXTRA_KEY = "station";

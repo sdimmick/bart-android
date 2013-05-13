@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <!-- content provider strings -->
+    <string name="provider.authority">me.doubledutch</string>
+    <string name="provider.station.mimeType_item">nd.android.cursor.item/vnd.stevodimmick.station</string>
+    <string name="provider.station.mimeType_dir">nd.android.cursor.dir/vnd.stevodimmick.station</string>
 
     <string name="app_name">bart</string>
     <string name="action_settings">Settings</string>
