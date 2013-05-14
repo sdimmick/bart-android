@@ -21,9 +21,11 @@ public class MainActivity extends SherlockFragmentActivity {
         // Load the layout
         setContentView(R.layout.activity_main);
         
-        // Load the main fragment
-        StationListFragment fragment = new StationListFragment();
-        showFragment(fragment, false);
+        if (savedInstanceState == null) {
+            // Load the main fragment
+            StationListFragment fragment = new StationListFragment();
+            showFragment(fragment, false);
+        }
     }
     
     /**
