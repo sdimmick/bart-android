@@ -33,8 +33,6 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".ArrivalTimesActivity" />
-        
     </application>
 
 </manifest>
