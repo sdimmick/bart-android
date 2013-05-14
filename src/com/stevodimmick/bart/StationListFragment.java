@@ -9,9 +9,6 @@ import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.stevodimmick.bart.adapter.StationCursorAdapter;
 import com.stevodimmick.bart.api.model.Station;
 import com.stevodimmick.bart.database.StationTable;
@@ -24,49 +21,21 @@ import com.stevodimmick.bart.service.BartStationService;
  */
 public class StationListFragment extends BaseListFragment implements LoaderCallbacks<Cursor> {
     private static final int STATIONS_CURSOR_ID = 1;
-    private MenuItem mRefreshMenuItem;
     
     @Override
     public void onStart() {
         super.onStart();
         
-        // Enable the menu
-        setHasOptionsMenu(true);
-        
         // Load a cursor to pull persisted stations from the database
         getLoaderManager().restartLoader(STATIONS_CURSOR_ID, null, this);
-        
-        // Spin the refresh button while data loads
-        spinRefreshButton();
     }
     
+    /**
+     * Refresh the list of stations
+     */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.refresh, menu);
-        mRefreshMenuItem = menu.findItem(R.id.menu_refresh);
-    }
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_refresh) {
-            spinRefreshButton();
-            startStationService();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-    
-    private void spinRefreshButton() {
-        if (mRefreshMenuItem != null) {
-            mRefreshMenuItem.setActionView(R.layout.refresh_button_spinner);
-        }
-    }
-    
-    private void stopRefreshButton() {
-        if (mRefreshMenuItem != null) {
-            mRefreshMenuItem.setActionView(null);
-        }
+    protected void refreshButtonClicked() {
+        startStationService();
     }
     
     /**

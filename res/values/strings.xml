@@ -2,7 +2,7 @@
 <resources>
     
     <!-- content provider strings -->
-    <string name="provider.authority">me.doubledutch</string>
+    <string name="provider.authority">com.stevodimmick</string>
     <string name="provider.station.mimeType_item">nd.android.cursor.item/vnd.stevodimmick.station</string>
     <string name="provider.station.mimeType_dir">nd.android.cursor.dir/vnd.stevodimmick.station</string>
 

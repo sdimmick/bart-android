@@ -30,6 +30,16 @@ public class ArrivalTimesListFragment extends BaseListFragment {
     public void onStart() {
         super.onStart();
         
+        fetchDepartureTimes();
+    }
+    
+    @Override
+    protected void refreshButtonClicked() {
+        fetchDepartureTimes();
+    }
+    
+    private void fetchDepartureTimes() {
+        // Fetch the departure time information for the selected station
         Station station = (Station) getArguments().getSerializable(STATION_EXTRA_KEY);
         new FetchArrivalTimesTask().execute(station);
     }
@@ -53,6 +63,8 @@ public class ArrivalTimesListFragment extends BaseListFragment {
         
         @Override
         protected void onPostExecute(List<TrainsForDestination> result) {
+            stopRefreshButton();
+            
             for (TrainsForDestination trains : result) {
                 Log.d(TAG, trains.getDestination());
                 for (ArrivalTime arrivalTime : trains.getArrivalTimes()) {
