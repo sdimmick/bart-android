@@ -11,4 +11,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="refresh">Refresh</string>
     
+    <!-- station list spinner -->
+    <string name="alphabetical">Alphabetical</string>
+    <string name="distance">Distance</string>
+    <string name="favorites">Favorites</string>
+    
 </resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="station_list_spinner">
+        <item>@string/alphabetical</item>
+        <item>@string/distance</item>
+        <item>@string/favorites</item>
+    </string-array>
+</resources>

@@ -7,8 +7,14 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.stevodimmick.bart.adapter.SpinnerFilterAdapter;
 import com.stevodimmick.bart.adapter.StationCursorAdapter;
 import com.stevodimmick.bart.api.model.Station;
 import com.stevodimmick.bart.database.StationTable;
@@ -19,8 +25,23 @@ import com.stevodimmick.bart.service.BartStationService;
  * Displays the complete list of BART stations. This is the main fragment for the app.
  * @author sdimmick
  */
-public class StationListFragment extends BaseListFragment implements LoaderCallbacks<Cursor> {
+public class StationListFragment extends BaseListFragment implements LoaderCallbacks<Cursor>, OnNavigationListener {
     private static final int STATIONS_CURSOR_ID = 1;
+    private String[] mFilters;
+    
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        
+        // Initialize the filter spinner
+        mFilters = getResources().getStringArray(R.array.station_list_spinner);
+        SpinnerAdapter spinnerAdapter = new SpinnerFilterAdapter(
+                getActivity(), R.layout.spinner_item, mFilters);
+
+        ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(spinnerAdapter, this);
+    }
     
     @Override
     public void onStart() {
@@ -119,6 +140,13 @@ public class StationListFragment extends BaseListFragment implements LoaderCallb
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        String filter = mFilters[itemPosition];
+        Toast.makeText(getActivity(), filter, Toast.LENGTH_SHORT).show();
+        return true;
     }
 
 }
